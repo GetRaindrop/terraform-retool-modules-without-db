@@ -28,10 +28,11 @@ resource "aws_db_instance" "this" {
   port                         = 5432
   publicly_accessible          = var.rds_publicly_accessible
   vpc_security_group_ids       = [aws_security_group.rds.id]
+  db_subnet_group_name         = one(var.subnet_ids)
   performance_insights_enabled = var.rds_performance_insights_enabled
   
   skip_final_snapshot          = true
-  apply_immediately           = true
+  apply_immediately            = true
 }
 
 resource "aws_ecs_service" "retool" {
