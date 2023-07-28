@@ -192,9 +192,6 @@ resource "aws_ecs_service" "retool_temporal_worker" {
 }
 
 resource "aws_ecs_task_definition" "retool_temporal_frontend" {
-
-  for_each = var.temporal_services_config
-
   family        = "${var.deployment_name}-frontend"
   task_role_arn = aws_iam_role.task_role.arn
   execution_role_arn = var.launch_type == "FARGATE" ? aws_iam_role.execution_role[0].arn : null
@@ -248,9 +245,6 @@ resource "aws_ecs_task_definition" "retool_temporal_frontend" {
 }
 
 resource "aws_ecs_task_definition" "retool_temporal_history" {
-
-  for_each = var.temporal_services_config
-
   family        = "${var.deployment_name}-history"
   task_role_arn = aws_iam_role.task_role.arn
   execution_role_arn = var.launch_type == "FARGATE" ? aws_iam_role.execution_role[0].arn : null
@@ -309,9 +303,6 @@ resource "aws_ecs_task_definition" "retool_temporal_history" {
 }
 
 resource "aws_ecs_task_definition" "retool_temporal_matching" {
-
-  for_each = var.temporal_services_config
-
   family        = "${var.deployment_name}-matching"
   task_role_arn = aws_iam_role.task_role.arn
   execution_role_arn = var.launch_type == "FARGATE" ? aws_iam_role.execution_role[0].arn : null
@@ -370,9 +361,6 @@ resource "aws_ecs_task_definition" "retool_temporal_matching" {
 }
 
 resource "aws_ecs_task_definition" "retool_temporal_worker" {
-
-  for_each = var.temporal_services_config
-
   family        = "${var.deployment_name}-worker"
   task_role_arn = aws_iam_role.task_role.arn
   execution_role_arn = var.launch_type == "FARGATE" ? aws_iam_role.execution_role[0].arn : null
