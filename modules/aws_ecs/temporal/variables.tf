@@ -18,7 +18,7 @@ variable "temporal_cluster_config" {
       namespace   = "workflows"
       host        = "temporal.retoolsvc"
       port        = "7233"
-      tls_enabled = false
+      tls_enabled = true
     }
 }
 
