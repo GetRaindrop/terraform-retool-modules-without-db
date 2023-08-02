@@ -22,7 +22,7 @@ resource "aws_lb_listener" "this" {
   }
 }
 
-resource "aws_lb_listener" "this" {
+resource "aws_lb_listener" "https" {
   load_balancer_arn = aws_lb.this.arn
   port              = 443
   protocol          = "HTTPS"
@@ -36,7 +36,7 @@ resource "aws_lb_listener" "this" {
 }
 
 resource "aws_lb_listener_rule" "this" {
-  listener_arn = aws_lb_listener.this.arn
+  listener_arn = aws_lb_listener.https.arn
   priority     = 1
 
   action {
