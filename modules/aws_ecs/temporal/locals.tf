@@ -45,6 +45,18 @@ locals {
       {
         "name": "ECS_DEPLOYED",
         "value": "true"
+      },
+      {
+        "name": "SQL_TLS_ENABLED",
+        "value": "true"
+      },
+      {
+        "name": "SQL_TLS",
+        "value": "true"
+      },
+      {
+        "name": "SQL_TLS_SKIP_HOST_VERIFICATION",
+        "value": "true"
       }
     ]
   )
