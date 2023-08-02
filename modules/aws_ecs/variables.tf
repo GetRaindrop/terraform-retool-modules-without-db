@@ -353,8 +353,8 @@ variable "alb_ingress_rules" {
   )
   default = [
     {
-      description      = "Global HTTP inbound"
-      from_port        = "80"
+      description      = "Global HTTPS inbound"
+      from_port        = "443"
       to_port          = "80"
       protocol         = "tcp"
       cidr_blocks      = ["0.0.0.0/0"]
