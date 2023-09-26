@@ -9,6 +9,11 @@ terraform {
 
 provider "aws" {
   region = var.aws_region
+  default_tags {
+    tags = {
+      Project = "retool-raindrop-self-hosted"
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "this" {
