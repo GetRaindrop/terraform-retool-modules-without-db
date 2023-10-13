@@ -401,3 +401,8 @@ variable "certificate_arn" {
   type        = string
   description = "ARN of the certificate to use for HTTPS."
 }
+
+variable "resources_project_tag" {
+  type        = string
+  description = "Value for the `Project` tag on resources."
+}
