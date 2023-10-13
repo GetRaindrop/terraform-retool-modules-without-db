@@ -22,7 +22,7 @@ resource "aws_cloudwatch_log_group" "this" {
 }
 
 resource "aws_db_subnet_group" "this" {
-  name       = "main"
+  name       = var.db_subnet_group_name
   subnet_ids = var.subnet_ids
 }
 

@@ -406,3 +406,8 @@ variable "resources_project_tag" {
   type        = string
   description = "Value for the `Project` tag on resources."
 }
+
+variable "db_subnet_group_name" {
+  type        = string
+  description = "Name of the DB subnet group to create."
+}
