@@ -411,3 +411,13 @@ variable "db_subnet_group_name" {
   type        = string
   description = "Name of the DB subnet group to create."
 }
+
+variable "open_ai_proxy_host" {
+  type        = string
+  description = "The proxy host of the OpenAI account."
+}
+
+variable "open_ai_api_token" {
+  type        = string
+  description = "The API token for the OpenAI account."
+}
