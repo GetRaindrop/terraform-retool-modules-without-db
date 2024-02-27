@@ -75,6 +75,10 @@ locals {
       {
         "name" : "OPENAI_PROXY_API_TOKEN",
         "value" : var.open_ai_api_token
+      },
+      {
+        "name" : "OPENAI_API_KEY",
+        "value" : var.open_ai_api_token
       }
     ]
   )
