@@ -421,3 +421,8 @@ variable "open_ai_api_token" {
   type        = string
   description = "The API token for the OpenAI account."
 }
+
+variable "dbconnector_query_timeout_ms" {
+  type    = string
+  default = 120000
+}

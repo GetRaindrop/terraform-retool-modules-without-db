@@ -79,6 +79,10 @@ locals {
       {
         "name" : "OPENAI_API_KEY",
         "value" : var.open_ai_api_token
+      },
+      {
+        "name" : "DBCONNECTOR_QUERY_TIMEOUT_MS",
+        "value" : var.dbconnector_query_timeout_ms
       }
     ]
   )
