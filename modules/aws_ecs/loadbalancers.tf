@@ -35,6 +35,12 @@ resource "aws_lb_listener" "https" {
   }
 }
 
+resource "aws_lb_listener_certificate" "this" {
+  count           = var.additional_certificate_arn != null ? 1 : 0
+  listener_arn    = aws_lb_listener.https.arn
+  certificate_arn = var.additional_certificate_arn
+}
+
 resource "aws_lb_listener_rule" "this" {
   listener_arn = aws_lb_listener.https.arn
   priority     = 1
