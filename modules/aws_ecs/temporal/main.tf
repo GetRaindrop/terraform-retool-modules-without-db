@@ -25,7 +25,7 @@ module "temporal_aurora_rds" {
 
   serverlessv2_scaling_configuration = {
     min_capacity = 0.5
-    max_capacity = 10
+    max_capacity = 30
   }
 
   security_group_rules = {
