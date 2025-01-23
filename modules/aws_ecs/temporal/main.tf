@@ -2,22 +2,22 @@ module "temporal_aurora_rds" {
   source  = "terraform-aws-modules/rds-aurora/aws"
   version = "8.0.2"
 
-  name="${var.deployment_name}-temporal-rds-instance"
+  name              = "${var.deployment_name}-temporal-rds-instance"
   engine            = "aurora-postgresql"
   engine_mode       = "provisioned"
   engine_version    = "14.9"
   storage_encrypted = true
 
-  vpc_id               = var.vpc_id
+  vpc_id = var.vpc_id
 
   monitoring_interval = 60
 
   # Create DB Subnet group using var.subnet_ids
   create_db_subnet_group = true
-  subnets = var.subnet_ids
+  subnets                = var.subnet_ids
 
-  master_username = aws_secretsmanager_secret_version.temporal_aurora_username.secret_string
-  master_password = aws_secretsmanager_secret_version.temporal_aurora_password.secret_string
+  master_username             = aws_secretsmanager_secret_version.temporal_aurora_username.secret_string
+  master_password             = aws_secretsmanager_secret_version.temporal_aurora_password.secret_string
   manage_master_user_password = false
 
   apply_immediately   = true
@@ -41,7 +41,7 @@ module "temporal_aurora_rds" {
 }
 
 resource "aws_service_discovery_service" "temporal_frontend_service" {
-  name  = "temporal"
+  name = "temporal"
 
   dns_config {
     namespace_id = var.private_dns_namespace_id
@@ -192,13 +192,13 @@ resource "aws_ecs_service" "retool_temporal_worker" {
 }
 
 resource "aws_ecs_task_definition" "retool_temporal_frontend" {
-  family        = "${var.deployment_name}-frontend"
-  task_role_arn = aws_iam_role.task_role.arn
-  execution_role_arn = var.launch_type == "FARGATE" ? aws_iam_role.execution_role[0].arn : null
+  family                   = "${var.deployment_name}-frontend"
+  task_role_arn            = aws_iam_role.task_role.arn
+  execution_role_arn       = var.launch_type == "FARGATE" ? aws_iam_role.execution_role[0].arn : null
   requires_compatibilities = var.launch_type == "FARGATE" ? ["FARGATE"] : null
-  network_mode  = var.launch_type == "FARGATE" ? "awsvpc" : "bridge"
-  cpu       = var.launch_type == "FARGATE" ? 512 : null
-  memory    = var.launch_type == "FARGATE" ? 1024 : null
+  network_mode             = var.launch_type == "FARGATE" ? "awsvpc" : "bridge"
+  cpu                      = var.launch_type == "FARGATE" ? 1024 : null
+  memory                   = var.launch_type == "FARGATE" ? 2048 : null
   container_definitions = jsonencode(
     [
       {
@@ -245,13 +245,13 @@ resource "aws_ecs_task_definition" "retool_temporal_frontend" {
 }
 
 resource "aws_ecs_task_definition" "retool_temporal_history" {
-  family        = "${var.deployment_name}-history"
-  task_role_arn = aws_iam_role.task_role.arn
-  execution_role_arn = var.launch_type == "FARGATE" ? aws_iam_role.execution_role[0].arn : null
+  family                   = "${var.deployment_name}-history"
+  task_role_arn            = aws_iam_role.task_role.arn
+  execution_role_arn       = var.launch_type == "FARGATE" ? aws_iam_role.execution_role[0].arn : null
   requires_compatibilities = var.launch_type == "FARGATE" ? ["FARGATE"] : null
-  network_mode  = var.launch_type == "FARGATE" ? "awsvpc" : "bridge"
-  cpu       = var.launch_type == "FARGATE" ? 512 : null
-  memory    = var.launch_type == "FARGATE" ? 2048 : null
+  network_mode             = var.launch_type == "FARGATE" ? "awsvpc" : "bridge"
+  cpu                      = var.launch_type == "FARGATE" ? 2048 : null
+  memory                   = var.launch_type == "FARGATE" ? 8192 : null
   container_definitions = jsonencode(
     [
       {
@@ -291,9 +291,9 @@ resource "aws_ecs_task_definition" "retool_temporal_history" {
               "value" = "history"
             },
           ],
-          [ {
-              "name": "PUBLIC_FRONTEND_ADDRESS",
-              "value": "${var.temporal_cluster_config.host}:${var.temporal_cluster_config.port}"
+          [{
+            "name" : "PUBLIC_FRONTEND_ADDRESS",
+            "value" : "${var.temporal_cluster_config.host}:${var.temporal_cluster_config.port}"
             }
           ]
         )
@@ -303,13 +303,13 @@ resource "aws_ecs_task_definition" "retool_temporal_history" {
 }
 
 resource "aws_ecs_task_definition" "retool_temporal_matching" {
-  family        = "${var.deployment_name}-matching"
-  task_role_arn = aws_iam_role.task_role.arn
-  execution_role_arn = var.launch_type == "FARGATE" ? aws_iam_role.execution_role[0].arn : null
+  family                   = "${var.deployment_name}-matching"
+  task_role_arn            = aws_iam_role.task_role.arn
+  execution_role_arn       = var.launch_type == "FARGATE" ? aws_iam_role.execution_role[0].arn : null
   requires_compatibilities = var.launch_type == "FARGATE" ? ["FARGATE"] : null
-  network_mode  = var.launch_type == "FARGATE" ? "awsvpc" : "bridge"
-  cpu       = var.launch_type == "FARGATE" ? 512 : null
-  memory    = var.launch_type == "FARGATE" ? 1024 : null
+  network_mode             = var.launch_type == "FARGATE" ? "awsvpc" : "bridge"
+  cpu                      = var.launch_type == "FARGATE" ? 1024 : null
+  memory                   = var.launch_type == "FARGATE" ? 2048 : null
   container_definitions = jsonencode(
     [
       {
@@ -349,9 +349,9 @@ resource "aws_ecs_task_definition" "retool_temporal_matching" {
               "value" = "matching"
             },
           ],
-          [ {
-              "name": "PUBLIC_FRONTEND_ADDRESS",
-              "value": "${var.temporal_cluster_config.host}:${var.temporal_cluster_config.port}"
+          [{
+            "name" : "PUBLIC_FRONTEND_ADDRESS",
+            "value" : "${var.temporal_cluster_config.host}:${var.temporal_cluster_config.port}"
             }
           ]
         )
@@ -361,13 +361,13 @@ resource "aws_ecs_task_definition" "retool_temporal_matching" {
 }
 
 resource "aws_ecs_task_definition" "retool_temporal_worker" {
-  family        = "${var.deployment_name}-worker"
-  task_role_arn = aws_iam_role.task_role.arn
-  execution_role_arn = var.launch_type == "FARGATE" ? aws_iam_role.execution_role[0].arn : null
+  family                   = "${var.deployment_name}-worker"
+  task_role_arn            = aws_iam_role.task_role.arn
+  execution_role_arn       = var.launch_type == "FARGATE" ? aws_iam_role.execution_role[0].arn : null
   requires_compatibilities = var.launch_type == "FARGATE" ? ["FARGATE"] : null
-  network_mode  = var.launch_type == "FARGATE" ? "awsvpc" : "bridge"
-  cpu       = var.launch_type == "FARGATE" ? 512 : null
-  memory    = var.launch_type == "FARGATE" ? 1024 : null
+  network_mode             = var.launch_type == "FARGATE" ? "awsvpc" : "bridge"
+  cpu                      = var.launch_type == "FARGATE" ? 512 : null
+  memory                   = var.launch_type == "FARGATE" ? 1024 : null
   container_definitions = jsonencode(
     [
       {
@@ -407,9 +407,9 @@ resource "aws_ecs_task_definition" "retool_temporal_worker" {
               "value" = "worker"
             },
           ],
-          [ {
-              "name": "PUBLIC_FRONTEND_ADDRESS",
-              "value": "${var.temporal_cluster_config.host}:${var.temporal_cluster_config.port}"
+          [{
+            "name" : "PUBLIC_FRONTEND_ADDRESS",
+            "value" : "${var.temporal_cluster_config.host}:${var.temporal_cluster_config.port}"
             }
           ]
         )
