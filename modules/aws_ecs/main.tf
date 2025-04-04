@@ -21,31 +21,6 @@ resource "aws_cloudwatch_log_group" "this" {
   retention_in_days = var.log_retention_in_days
 }
 
-resource "aws_db_subnet_group" "this" {
-  name       = var.db_subnet_group_name
-  subnet_ids = var.subnet_ids
-}
-
-resource "aws_db_instance" "this" {
-  identifier                   = "${var.deployment_name}-rds-instance"
-  allocated_storage            = 80
-  instance_class               = var.rds_instance_class
-  engine                       = "postgres"
-  engine_version               = "14.13"
-  db_name                      = "hammerhead_production"
-  username                     = aws_secretsmanager_secret_version.rds_username.secret_string
-  password                     = aws_secretsmanager_secret_version.rds_password.secret_string
-  port                         = 5432
-  publicly_accessible          = var.rds_publicly_accessible
-  vpc_security_group_ids       = [aws_security_group.rds.id]
-  db_subnet_group_name         = aws_db_subnet_group.this.name
-  performance_insights_enabled = var.rds_performance_insights_enabled
-  max_allocated_storage        = "645"
-
-  skip_final_snapshot = true
-  apply_immediately   = true
-}
-
 resource "aws_ecs_service" "retool" {
   name                               = "${var.deployment_name}-main-service"
   cluster                            = aws_ecs_cluster.this.id

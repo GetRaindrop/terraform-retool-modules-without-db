@@ -17,7 +17,7 @@ locals {
       },
       {
         name  = "POSTGRES_HOST"
-        value = aws_db_instance.this.address
+        value = var.postgres_host
       },
       {
         name  = "POSTGRES_SSL_ENABLED"

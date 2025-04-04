@@ -105,28 +105,9 @@ variable "rds_username" {
   description = "Master username for the RDS instance. Defaults to Retool."
 }
 
-variable "rds_instance_class" {
+variable "postgres_host" {
   type        = string
-  default     = "db.m6g.large"
-  description = "Instance class for RDS. Defaults to `db.m6g.large`"
-}
-
-variable "rds_publicly_accessible" {
-  type        = bool
-  default     = true
-  description = "Whether the RDS instance should be publicly accessible. Defaults to false."
-}
-
-variable "rds_performance_insights_enabled" {
-  type        = bool
-  default     = true
-  description = "Whether to enable Performance Insights for RDS. Defaults to true."
-}
-
-variable "rds_performance_insights_retention_period" {
-  type        = number
-  default     = 14
-  description = "The time in days to retain Performance Insights for RDS. Defaults to 14."
+  description = "Hostname for the Postgres instance."
 }
 
 variable "use_exising_temporal_cluster" {

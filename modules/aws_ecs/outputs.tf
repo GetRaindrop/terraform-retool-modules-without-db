@@ -22,23 +22,3 @@ output "ecs_cluster_id" {
   value       = aws_ecs_cluster.this.id
   description = "ID of AWS ECS Cluster"
 }
-
-output "rds_instance_id" {
-  value       = aws_db_instance.this.id
-  description = "ID of AWS RDS instance"
-}
-
-output "rds_instance_address" {
-  value       = aws_db_instance.this.address
-  description = "Hostname of the RDS instance"
-}
-
-output "rds_instance_arn" {
-  value       = aws_db_instance.this.arn
-  description = "ARN of RDS instance"
-}
-
-output "rds_instance_name" {
-  value       = aws_db_instance.this.db_name
-  description = "Name of RDS instance"
-}
