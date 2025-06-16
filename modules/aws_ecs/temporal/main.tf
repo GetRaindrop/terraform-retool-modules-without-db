@@ -5,7 +5,7 @@ module "temporal_aurora_rds" {
   name              = "${var.deployment_name}-temporal-rds-instance"
   engine            = "aurora-postgresql"
   engine_mode       = "provisioned"
-  engine_version    = "14.9"
+  engine_version    = "14.15"
   storage_encrypted = true
 
   vpc_id = var.vpc_id
