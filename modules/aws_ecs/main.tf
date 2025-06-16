@@ -403,3 +403,8 @@ module "temporal" {
   container_sg_id                = aws_security_group.containers.id
   aws_ecs_capacity_provider_name = var.launch_type == "EC2" ? aws_ecs_capacity_provider.this[0].name : null
 }
+
+resource "aws_db_subnet_group" "this" {
+  name       = var.db_subnet_group_name
+  subnet_ids = var.subnet_ids
+}
