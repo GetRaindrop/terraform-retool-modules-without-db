@@ -83,6 +83,10 @@ locals {
       {
         "name" : "DBCONNECTOR_QUERY_TIMEOUT_MS",
         "value" : var.dbconnector_query_timeout_ms
+      },
+      {
+        "name" : "BASE_DOMAIN",
+        "value" : var.base_domain
       }
     ]
   )

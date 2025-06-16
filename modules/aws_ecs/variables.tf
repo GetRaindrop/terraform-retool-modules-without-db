@@ -412,3 +412,8 @@ variable "dbconnector_query_timeout_ms" {
   type    = string
   default = 120000
 }
+
+variable "base_domain" {
+  type        = string
+  description = "The domain that Retool will be hosted at."
+}
